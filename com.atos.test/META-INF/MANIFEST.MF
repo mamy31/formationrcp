@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Test
+Bundle-SymbolicName: com.atos.test;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: com.atos.test.Activator
+Bundle-Vendor: ATOS
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ActivationPolicy: lazy
