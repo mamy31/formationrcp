@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.core.expressions.definitions">
+      <definition
+            id="com.atos.rental.cmd.customerSelected">
+         <and>
+            <count
+                  value="1">
+            </count>
+            <iterate>
+               <instanceof
+                     value="com.opcoach.training.rental.Customer">
+               </instanceof>
+            </iterate>
+         </and>
+      </definition>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:com.atos.rental.ui.RentalAgencyView?after=additions">
+         <command
+               commandId="org.eclipse.ui.edit.copy"
+               style="push">
+            <visibleWhen
+                  checkEnabled="false">
+               <reference
+                     definitionId="com.atos.rental.cmd.customerSelected">
+               </reference>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="com.atos.rental.cmd.handler.CopyCustomerHandler"
+            commandId="org.eclipse.ui.edit.copy">
+         <enabledWhen>
+            <reference
+                  definitionId="com.atos.rental.cmd.customerSelected">
+            </reference>
+         </enabledWhen>
+         <activeWhen>
+            <reference
+                  definitionId="com.atos.rental.cmd.customerSelected">
+            </reference>
+         </activeWhen>
+      </handler>
+   </extension>
+
+</plugin>
