@@ -5,11 +5,11 @@
    <extension
          point="org.eclipse.ui.views">
       <category
-            name="Sample Category"
+            name="%category.name"
             id="com.atos.test">
       </category>
       <view
-            name="Sample View"
+            name="%view.name"
             icon="icons/sample.gif"
             category="com.atos.test"
             class="com.atos.test.views.SampleView"

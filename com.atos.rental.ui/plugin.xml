@@ -5,14 +5,14 @@
          point="org.eclipse.ui.views">
       <category
             id="com.atos.rental.ui.category1"
-            name="Rental">
+            name="%category.name">
       </category>
       <view
             category="com.atos.rental.ui.category1"
             class="com.atos.rental.ui.views.RentalPropertyView"
             icon="icons/Rentals.png"
             id="com.atos.rental.ui.RentalPropertyView"
-            name="RentalPropertyView"
+            name="%view.name"
             restorable="true">
       </view>
       <view
@@ -20,7 +20,7 @@
             class="com.atos.rental.ui.views.RentalAgencyView"
             icon="icons/Agency.png"
             id="com.atos.rental.ui.RentalAgencyView"
-            name="RentalAgencyView"
+            name="%view.name.0"
             restorable="true">
       </view>
    </extension>
@@ -29,7 +29,7 @@
       <perspective
             class="com.atos.test.perspective.RentalPerspective"
             id="com.atos.test.perspective.RentalPerspective"
-            name="Rental">
+            name="%perspective.name">
       </perspective>
    </extension>
    <extension
@@ -37,7 +37,7 @@
       <page
             class="com.atos.rental.ui.preferences.RentalPreferencePage"
             id="com.atos.rental.ui.RentalPreferencePage"
-            name="Rental">
+            name="%page.name">
       </page>
    </extension>
    <extension
@@ -51,7 +51,7 @@
       <command
             defaultHandler="com.atos.rental.ui.handler.SampleHandler"
             id="com.atos.rental.ui.sampleCommand"
-            name="Sample Command">
+            name="%command.name">
       </command>
    </extension>
    <extension
@@ -60,10 +60,10 @@
             allPopups="false"
             locationURI="menu:org.eclipse.ui.main.menu?after=additions">
          <menu
-               label="My menu">
+               label="%menu.label">
             <command
                   commandId="com.atos.rental.ui.sampleCommand"
-                  label="My command"
+                  label="%command.label"
                   style="push">
             </command>
          </menu>
@@ -73,7 +73,7 @@
             locationURI="menu:org.eclipse.ui.views.ResourceNavigator?after=additions">
          <command
                commandId="com.atos.rental.ui.sampleCommand"
-               label="My command"
+               label="%command.label.0"
                style="push">
          </command>
       </menuContribution>
@@ -82,7 +82,7 @@
             locationURI="popup:com.atos.rental.ui.RentalAgencyView?after=additions">
          <command
                commandId="com.atos.rental.ui.sampleCommand"
-               label="My command"
+               label="%command.label.1"
                style="push">
          </command>
       </menuContribution>
