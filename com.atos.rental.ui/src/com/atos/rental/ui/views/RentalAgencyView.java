@@ -2,10 +2,12 @@ package com.atos.rental.ui.views;
 
 import java.util.Arrays;
 
+import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Menu;
 import org.eclipse.ui.IViewSite;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.ViewPart;
@@ -36,6 +38,7 @@ public class RentalAgencyView extends ViewPart implements RentalUIConstants {
 		};
 		RentalUIActivator.getDefault().getPreferenceStore()
 				.addPropertyChangeListener(propertyChangeListener);
+
 		super.init(site);
 	}
 
@@ -46,6 +49,11 @@ public class RentalAgencyView extends ViewPart implements RentalUIConstants {
 		agencyViewer.setLabelProvider(new RentalAgencyContentProvider());
 		agencyViewer.setInput(Arrays.asList(RentalCoreActivator.getAgency()));
 		getSite().setSelectionProvider(agencyViewer);
+		
+		MenuManager menuManager = new MenuManager();
+		Menu menu = menuManager.createContextMenu(agencyViewer.getControl());
+		agencyViewer.getControl().setMenu(menu);
+		getSite().registerContextMenu(menuManager, agencyViewer);
 	}
 
 	@Override

@@ -46,5 +46,46 @@
             class="com.atos.rental.ui.preferences.RentalPreferenceInitializer">
       </initializer>
    </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            defaultHandler="com.atos.rental.ui.handler.SampleHandler"
+            id="com.atos.rental.ui.sampleCommand"
+            name="Sample Command">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:org.eclipse.ui.main.menu?after=additions">
+         <menu
+               label="My menu">
+            <command
+                  commandId="com.atos.rental.ui.sampleCommand"
+                  label="My command"
+                  style="push">
+            </command>
+         </menu>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:org.eclipse.ui.views.ResourceNavigator?after=additions">
+         <command
+               commandId="com.atos.rental.ui.sampleCommand"
+               label="My command"
+               style="push">
+         </command>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:com.atos.rental.ui.RentalAgencyView?after=additions">
+         <command
+               commandId="com.atos.rental.ui.sampleCommand"
+               label="My command"
+               style="push">
+         </command>
+      </menuContribution>
+   </extension>
 
 </plugin>
