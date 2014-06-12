@@ -23,6 +23,12 @@
             name="%view.name.0"
             restorable="true">
       </view>
+      <view
+            class="com.atos.rental.ui.CustomerPropertyView"
+            id="com.atos.rental.ui.CustomerPropertyView"
+            name="CustomerPropertyView"
+            restorable="true">
+      </view>
    </extension>
    <extension
          point="org.eclipse.ui.perspectives">

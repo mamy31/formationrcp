@@ -4,8 +4,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.eclipse.jface.util.IPropertyChangeListener;
-import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.SWT;
@@ -27,11 +25,11 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.ViewPart;
 
-import com.atos.rental.ui.RentalUIActivator;
 import com.atos.rental.ui.RentalUIConstants;
 import com.opcoach.training.rental.Rental;
 
-public class RentalPropertyView extends ViewPart implements ISelectionListener, RentalUIConstants {
+public class RentalPropertyView extends ViewPart implements ISelectionListener,
+		RentalUIConstants {
 
 	private Text customerLabel;
 	private Text rentedObjetLabel;
@@ -45,7 +43,7 @@ public class RentalPropertyView extends ViewPart implements ISelectionListener, 
 	@Override
 	public void init(IViewSite site) throws PartInitException {
 		super.init(site);
-		site.getPage().addSelectionListener(this);		
+		site.getPage().addSelectionListener(this);
 	}
 
 	@Override
