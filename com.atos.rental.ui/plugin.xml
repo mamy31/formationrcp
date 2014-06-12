@@ -10,6 +10,7 @@
       <view
             category="com.atos.rental.ui.category1"
             class="com.atos.rental.ui.views.RentalPropertyView"
+            icon="icons/Rentals.png"
             id="com.atos.rental.ui.RentalPropertyView"
             name="RentalPropertyView"
             restorable="true">
@@ -17,10 +18,33 @@
       <view
             category="com.atos.rental.ui.category1"
             class="com.atos.rental.ui.views.RentalAgencyView"
+            icon="icons/Agency.png"
             id="com.atos.rental.ui.RentalAgencyView"
             name="RentalAgencyView"
             restorable="true">
       </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            class="com.atos.test.perspective.RentalPerspective"
+            id="com.atos.test.perspective.RentalPerspective"
+            name="Rental">
+      </perspective>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="com.atos.rental.ui.preferences.RentalPreferencePage"
+            id="com.atos.rental.ui.RentalPreferencePage"
+            name="Rental">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="com.atos.rental.ui.preferences.RentalPreferenceInitializer">
+      </initializer>
    </extension>
 
 </plugin>

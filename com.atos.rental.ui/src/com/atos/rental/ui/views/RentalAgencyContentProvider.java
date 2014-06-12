@@ -3,14 +3,15 @@ package com.atos.rental.ui.views;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.eclipse.jface.resource.ColorRegistry;
+import org.eclipse.jface.resource.JFaceResources;
+import org.eclipse.jface.resource.StringConverter;
 import org.eclipse.jface.viewers.IColorProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.widgets.Display;
 
 import com.atos.rental.ui.RentalUIActivator;
 import com.atos.rental.ui.RentalUIConstants;
@@ -48,6 +49,46 @@ public class RentalAgencyContentProvider extends LabelProvider implements
 		String getText() {
 			return label;
 		}
+
+		@Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + getOuterType().hashCode();
+			result = prime * result
+					+ ((agency == null) ? 0 : agency.hashCode());
+			result = prime * result + ((label == null) ? 0 : label.hashCode());
+			return result;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			TNode other = (TNode) obj;
+			if (!getOuterType().equals(other.getOuterType()))
+				return false;
+			if (agency == null) {
+				if (other.agency != null)
+					return false;
+			} else if (!agency.equals(other.agency))
+				return false;
+			if (label == null) {
+				if (other.label != null)
+					return false;
+			} else if (!label.equals(other.label))
+				return false;
+			return true;
+		}
+
+		private RentalAgencyContentProvider getOuterType() {
+			return RentalAgencyContentProvider.this;
+		}
+
 	}
 
 	@Override
@@ -134,24 +175,36 @@ public class RentalAgencyContentProvider extends LabelProvider implements
 	@Override
 	public Color getForeground(Object element) {
 		if (element instanceof Customer) {
-			return Display.getCurrent().getSystemColor(SWT.COLOR_BLUE);
+			return getPreferenceColor(PREF_CUSTOMER_COLOR);
 		} else if (element instanceof RentalObject) {
-			return Display.getCurrent().getSystemColor(SWT.COLOR_RED);
+			return getPreferenceColor(PREF_OBJECT_COLOR);
 		} else if (element instanceof Rental) {
-			return Display.getCurrent().getSystemColor(SWT.COLOR_GREEN);
+			return getPreferenceColor(PREF_RENTAL_COLOR);
 		}
 		return null;
+	}
+
+	private Color getPreferenceColor(String idPreferenceColor) {
+		String rgbKey = RentalUIActivator.getDefault().getPreferenceStore()
+				.getString(idPreferenceColor);
+		ColorRegistry colorRegistry = JFaceResources.getColorRegistry();
+		Color col = colorRegistry.get(rgbKey);
+		if (col == null) {
+			colorRegistry.put(rgbKey, StringConverter.asRGB(rgbKey));
+			col = colorRegistry.get(rgbKey);
+		}
+		return col;
 	}
 
 	@Override
 	public Color getBackground(Object element) {
 		if (element instanceof TNode) {
 			if (((TNode) element).getText().equals(CUSTOMERS_NODE)) {
-				return Display.getCurrent().getSystemColor(SWT.COLOR_BLUE);
+				return getPreferenceColor(PREF_CUSTOMER_COLOR);
 			} else if (((TNode) element).getText().equals(LOCATIONS_NODE)) {
-				return Display.getCurrent().getSystemColor(SWT.COLOR_GREEN);
+				return getPreferenceColor(PREF_RENTAL_COLOR);
 			} else if (((TNode) element).getText().equals(OBJECTS_TO_RENT_NODE)) {
-				return Display.getCurrent().getSystemColor(SWT.COLOR_RED);
+				return getPreferenceColor(PREF_OBJECT_COLOR);
 			}
 		}
 		return null;
