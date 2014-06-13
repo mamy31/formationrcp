@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Rcp
+Bundle-SymbolicName: com.atos.rental.rcp;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: com.atos.rental.rcp.Activator
+Bundle-Vendor: ATOS
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ com.atos.rental.ui;bundle-version="1.0.0",
+ com.atos.rental.adapter;bundle-version="1.0.0",
+ com.atos.rental.core;bundle-version="1.0.0",
+ com.atos.rental.cmd;bundle-version="1.0.0",
+ com.atos.rental.help;bundle-version="1.0.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ActivationPolicy: lazy

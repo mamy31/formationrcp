@@ -25,6 +25,7 @@
             restorable="true">
       </view>
       <view
+            category="com.atos.rental.ui.category1"
             class="com.atos.rental.ui.CustomerPropertyView"
             icon="icons/Customers.png"
             id="com.atos.rental.ui.CustomerPropertyView"
