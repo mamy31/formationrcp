@@ -25,6 +25,7 @@
       </view>
       <view
             class="com.atos.rental.ui.CustomerPropertyView"
+            icon="icons/Customers.png"
             id="com.atos.rental.ui.CustomerPropertyView"
             name="CustomerPropertyView"
             restorable="true">
@@ -34,6 +35,7 @@
          point="org.eclipse.ui.perspectives">
       <perspective
             class="com.atos.test.perspective.RentalPerspective"
+            icon="icons/sample.gif"
             id="com.atos.test.perspective.RentalPerspective"
             name="%perspective.name">
       </perspective>
