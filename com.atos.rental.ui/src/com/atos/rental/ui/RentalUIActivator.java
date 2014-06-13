@@ -1,14 +1,23 @@
 package com.atos.rental.ui;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionRegistry;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
+import org.eclipse.jface.viewers.IColorProvider;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
+
+import com.atos.rental.ui.palettes.Palette;
 
 /**
  * The activator class controls the plug-in life cycle
@@ -21,6 +30,9 @@ public class RentalUIActivator extends AbstractUIPlugin implements
 
 	// The shared instance
 	private static RentalUIActivator plugin;
+
+	/** The map of possible color providers (read in extensions) */
+	private Map<String, Palette> paletteManager = new HashMap<String, Palette>();
 
 	/**
 	 * The constructor
@@ -37,7 +49,7 @@ public class RentalUIActivator extends AbstractUIPlugin implements
 	 */
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
-		readViewExtensions();
+		initPaletteManager();
 		plugin = this;
 	}
 
@@ -75,13 +87,35 @@ public class RentalUIActivator extends AbstractUIPlugin implements
 				ImageDescriptor.createFromURL(b.getEntry(IMG_OBJECT)));
 	}
 
-	private void readViewExtensions() {
+	private void initPaletteManager() {
 		IExtensionRegistry reg = Platform.getExtensionRegistry();
 		for (IConfigurationElement e : reg
-				.getConfigurationElementsFor("org.eclipse.ui.views")) {
-			if (e.getName().equals("view")) {
-				System.out.println("Plugin : " + e.getNamespaceIdentifier() + "\t\t\tVue : " + e.getAttribute("name"));
+				.getConfigurationElementsFor("com.atos.rental.ui.palette")) {
+			if (e.getName().equals("palette")) {
+				try {
+					String id = e.getAttribute("id");
+					String name = e.getAttribute("name");
+					IColorProvider colorProvider = (IColorProvider) e
+							.createExecutableExtension("class");
+					Palette palette = new Palette(id, name, colorProvider);
+					paletteManager.put(id, palette);
+				} catch (CoreException ce) {
+					getLog().log(
+							new Status(IStatus.ERROR, e
+									.getNamespaceIdentifier(),
+									"Unable to create the color provider.", ce));
+				}
 			}
 		}
+
+		// Test
+		System.out.println("Palettes dispo:");
+		for (Palette palette : paletteManager.values()) {
+			System.out.println(palette.toString());
+		}
+	}
+
+	public Map<String, Palette> getPalettes() {
+		return paletteManager;
 	}
 }

@@ -2,10 +2,8 @@ package com.atos.rental.ui.views;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 
-import org.eclipse.jface.resource.ColorRegistry;
-import org.eclipse.jface.resource.JFaceResources;
-import org.eclipse.jface.resource.StringConverter;
 import org.eclipse.jface.viewers.IColorProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
@@ -15,6 +13,7 @@ import org.eclipse.swt.graphics.Image;
 
 import com.atos.rental.ui.RentalUIActivator;
 import com.atos.rental.ui.RentalUIConstants;
+import com.atos.rental.ui.palettes.Palette;
 import com.opcoach.training.rental.Customer;
 import com.opcoach.training.rental.Rental;
 import com.opcoach.training.rental.RentalAgency;
@@ -25,7 +24,7 @@ public class RentalAgencyContentProvider extends LabelProvider implements
 
 	public static Object[] EMPTY_RESULT = new Object[0];
 
-	class TNode {
+	public class TNode {
 		private String label;
 		private RentalAgency agency;
 
@@ -46,7 +45,7 @@ public class RentalAgencyContentProvider extends LabelProvider implements
 			return EMPTY_RESULT;
 		}
 
-		String getText() {
+		public String getText() {
 			return label;
 		}
 
@@ -174,38 +173,30 @@ public class RentalAgencyContentProvider extends LabelProvider implements
 
 	@Override
 	public Color getForeground(Object element) {
-		if (element instanceof Customer) {
-			return getPreferenceColor(PREF_CUSTOMER_COLOR);
-		} else if (element instanceof RentalObject) {
-			return getPreferenceColor(PREF_OBJECT_COLOR);
-		} else if (element instanceof Rental) {
-			return getPreferenceColor(PREF_RENTAL_COLOR);
+		IColorProvider preferenceColorProvider = getPreferenceColorProvider();
+		if (preferenceColorProvider != null) {
+			return preferenceColorProvider.getForeground(element);
 		}
 		return null;
 	}
 
-	private Color getPreferenceColor(String idPreferenceColor) {
-		String rgbKey = RentalUIActivator.getDefault().getPreferenceStore()
-				.getString(idPreferenceColor);
-		ColorRegistry colorRegistry = JFaceResources.getColorRegistry();
-		Color col = colorRegistry.get(rgbKey);
-		if (col == null) {
-			colorRegistry.put(rgbKey, StringConverter.asRGB(rgbKey));
-			col = colorRegistry.get(rgbKey);
-		}
-		return col;
-	}
-
 	@Override
 	public Color getBackground(Object element) {
-		if (element instanceof TNode) {
-			if (((TNode) element).getText().equals(CUSTOMERS_NODE)) {
-				return getPreferenceColor(PREF_CUSTOMER_COLOR);
-			} else if (((TNode) element).getText().equals(LOCATIONS_NODE)) {
-				return getPreferenceColor(PREF_RENTAL_COLOR);
-			} else if (((TNode) element).getText().equals(OBJECTS_TO_RENT_NODE)) {
-				return getPreferenceColor(PREF_OBJECT_COLOR);
-			}
+		IColorProvider preferenceColorProvider = getPreferenceColorProvider();
+		if (preferenceColorProvider != null) {
+			return preferenceColorProvider.getBackground(element);
+		}
+		return null;
+	}
+
+	private IColorProvider getPreferenceColorProvider() {
+		String pref = RentalUIActivator.getDefault().getPreferenceStore()
+				.getString(PREF_PALETTE);
+		Map<String, Palette> palettes = RentalUIActivator.getDefault()
+				.getPalettes();
+		Palette palette = palettes.get(pref);
+		if (palette != null) {
+			return palette.getColorProvider();
 		}
 		return null;
 	}

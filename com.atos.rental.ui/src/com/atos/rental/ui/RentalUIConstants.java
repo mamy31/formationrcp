@@ -13,4 +13,6 @@ public interface RentalUIConstants {
 	static String PREF_CUSTOMER_COLOR = "Customer :";
 	static String PREF_RENTAL_COLOR = "Rental :";
 	static String PREF_OBJECT_COLOR = "Objets :";
+	
+	static String PREF_PALETTE = "Préférence palette";
 }
