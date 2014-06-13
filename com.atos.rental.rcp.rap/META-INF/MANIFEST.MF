@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Rap
+Bundle-SymbolicName: com.atos.rental.rcp.rap;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: ATOS
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Fragment-Host: com.atos.rental.rcp;bundle-version="1.0.0.qualifier"

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<fragment>
+   <extension
+         point="org.eclipse.rap.ui.branding">
+      <branding
+            id="com.atos.rental.rcp.rap.branding1"
+            themeId="org.eclipse.rap.design.example.business.theme">
+      </branding>
+   </extension>
+   <extension
+         point="org.eclipse.rap.ui.entrypoint">
+      <entrypoint
+            applicationId="com.atos.rental.rcp.application"
+            brandingId="com.atos.rental.rcp.rap.branding1"
+            id="com.atos.rental.rcp.rap.entrypoint1"
+            path="/rental">
+      </entrypoint>
+   </extension>
+
+</fragment>
