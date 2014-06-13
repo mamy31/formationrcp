@@ -24,6 +24,9 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 
     protected void fillMenuBar(IMenuManager menuBar) {
     	MenuManager menuManager = new MenuManager("&Window", IWorkbenchActionConstants.WINDOW_EXT);
+    	menuBar.add(menuManager);
+    	
+    	menuManager.add(preferences);
     }
     
 }
